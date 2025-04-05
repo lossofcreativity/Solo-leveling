@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manga Chapter Downloads</title>
+  <title>Manga Chapter Viewer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -37,43 +37,45 @@
     .chapter a:hover {
       text-decoration: underline;
     }
-    .chapter span {
-      font-weight: bold;
+    .pdf-container {
+      text-align: center;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    embed {
+      width: 100%;
+      height: 600px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Manga Chapter Downloads</h1>
+  <h1>Manga Chapter Viewer</h1>
   <div class="chapter-list">
 
-    <!-- Repeat this block for each chapter, replacing links with the actual raw GitHub links -->
+    <!-- Chapter 111 Example -->
     <div class="chapter">
       <span>Chapter 111</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20111.pdf" download>Download</a>
+      <a href="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20111.pdf" target="_blank">Download</a>
     </div>
-    <div class="chapter">
-      <span>Chapter 112</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20112.pdf" download>Download</a>
-    </div>
-    <div class="chapter">
-      <span>Chapter 113</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20113.pdf" download>Download</a>
-    </div>
-    <div class="chapter">
-      <span>Chapter 114</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20114.pdf" download>Download</a>
-    </div>
-    <div class="chapter">
-      <span>Chapter 115</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20115.pdf" download>Download</a>
-    </div>
-    <div class="chapter">
-      <span>Chapter 116</span>
-      <a href="https://raw.githubusercontent.com/yourusername/repo-name/main/Ch%20116.pdf" download>Download</a>
+    <div class="pdf-container">
+      <embed src="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20111.pdf" type="application/pdf" />
     </div>
 
-    <!-- Continue adding chapters as needed -->
+    <!-- Chapter 112 Example -->
+    <div class="chapter">
+      <span>Chapter 112</span>
+      <a href="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20112.pdf" target="_blank">Download</a>
+    </div>
+    <div class="pdf-container">
+      <embed src="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20112.pdf" type="application/pdf" />
+    </div>
+
+    <!-- Add more chapters as needed -->
+    <!-- Repeat for other chapters -->
 
   </div>
 
