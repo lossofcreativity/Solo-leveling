@@ -328,6 +328,8 @@
         
         .footer-links a:hover {
             color: var(--primary);
+            scale: 1.1;
+            transition: 0.3s ease;
         }
         
         .social-links {
@@ -344,7 +346,12 @@
         }
         
         .social-links a:hover {
-            color: var(--primary);
+            color: black;
+            background-color: var(--primary);
+            transform: scale(1.1);
+            border-radius: 50%;
+            padding: 5px;
+            transition: 0.3s ease;
         }
         
         .copyright {
@@ -473,9 +480,9 @@
                     <a href="#">Privacy Policy</a>
                 </div>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/avayashrestha01"><i class="fab fa-facebook"></i></a>
+                    <a href="https://youtube.com/@flameofavaya"><i class="fab fa-youtube"></i></a>
+                    <a href="https://instagram.com/avayashrestha01"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-discord"></i></a>
                 </div>
                 <p class="copyright">© 2023 Solo Leveling Manga Reader. All rights reserved. Solo Leveling is owned by its respective authors and publishers.</p>
@@ -486,21 +493,14 @@
     <script>
         // Configuration
         const totalChapters = 200;
-        const pdfBaseUrl = "https://yourdomain.com/manga/"; // Change this to your actual PDF location
         const pdfPrefix = "Ch ";
         
         // Current chapter state
         let currentChapter = 1;
-        let pdfDoc = null;
-        let pageNum = 1;
-        let pageRendering = false;
-        let pageNumPending = null;
         
         // DOM elements
         const pdfIframe = document.getElementById('pdf-iframe');
         const currentChapterEl = document.getElementById('current-chapter');
-        const currentPageEl = document.getElementById('current-page');
-        const totalPagesEl = document.getElementById('total-pages');
         const prevChapterBtn = document.getElementById('prev-chapter');
         const nextChapterBtn = document.getElementById('next-chapter');
         const downloadBtn = document.getElementById('download-btn');
@@ -538,15 +538,15 @@
             currentChapter = chapterNum;
             currentChapterEl.textContent = formatChapterNumber(currentChapter);
             
-            // Update PDF viewer
-            const pdfUrl = `${pdfBaseUrl}${pdfPrefix}${formatChapterNumber(currentChapter, true)}.pdf`;
-            pdfIframe.src = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+            // Update PDF viewer - using relative path to PDF in same directory
+            const pdfFileName = `${pdfPrefix}${formatChapterNumber(currentChapter, true)}.pdf`;
+            pdfIframe.src = `https://docs.google.com/gview?url=${encodeURIComponent(window.location.href + pdfFileName)}&embedded=true`;
             
             // Update chapter cards
             updateActiveChapterCard();
             
             // Update download button
-            downloadBtn.href = pdfUrl;
+            downloadBtn.href = pdfFileName;
             downloadBtn.download = `Solo Leveling ${pdfPrefix}${formatChapterNumber(currentChapter)}.pdf`;
             
             // Update navigation buttons
