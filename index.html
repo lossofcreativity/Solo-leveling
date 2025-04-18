@@ -1,83 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manga Chapter Viewer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-      margin: 0;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .chapter-list {
-      max-width: 800px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .chapter {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid #eee;
-      font-size: 18px;
-    }
-    .chapter a {
-      text-decoration: none;
-      color: #007bff;
-    }
-    .chapter a:hover {
-      text-decoration: underline;
-    }
-    .pdf-container {
-      text-align: center;
-      margin-top: 20px;
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: #fff;
-    }
-    embed {
-      width: 100%;
-      height: 600px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling - Manga Reader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --dark: #0a1128;
+            --light: #f1faee;
+            --accent: #a8dadc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(13, 27, 42, 0.9);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--primary), #f72585);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(10, 17, 40, 0.7), rgba(10, 17, 40, 0.9)), url('https://wallpapercave.com/wp/wp9414530.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Roboto Condensed', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #c1121f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+        }
+        
+        .reader-container {
+            padding: 60px 0;
+        }
+        
+        .reader-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .reader-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-family: 'Roboto Condensed', sans-serif;
+            color: var(--primary);
+        }
+        
+        .reader-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .chapter-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chapter-nav {
+            background-color: var(--secondary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chapter-nav:hover {
+            background-color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .chapter-nav.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .chapter-info {
+            text-align: center;
+        }
+        
+        .chapter-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .chapter-info p {
+            opacity: 0.7;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 800px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .pdf-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .download-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .chapter-list {
+            background-color: rgba(29, 53, 87, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        .chapter-list h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .chapter-card {
+            background-color: var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .chapter-card:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .chapter-card.active {
+            background-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), #f72585);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .pdf-viewer {
+                height: 500px;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://i.imgur.com/JqYeZtn.png" alt="Solo Leveling Logo">
+                    <h1>Solo Leveling</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#read">Read</a></li>
+                        <li><a href="#chapters">Chapters</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-  <h1>Manga Chapter Viewer</h1>
-  <div class="chapter-list">
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Read Solo Leveling Manga Online</h2>
+            <p>Experience the thrilling journey of Sung Jin-Woo, the weakest hunter who becomes the strongest. Read all chapters online or download them for offline reading.</p>
+            <div class="hero-buttons">
+                <a href="#read" class="btn">Start Reading</a>
+                <a href="#chapters" class="btn btn-outline">Browse Chapters</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Chapter 111 Example -->
-    <div class="chapter">
-      <span>Chapter 111</span>
-      <a href="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20111.pdf" target="_blank">Download</a>
-    </div>
-    <div class="pdf-container">
-      <embed src="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20111.pdf" type="application/pdf" />
-    </div>
+    <section class="reader-container" id="read">
+        <div class="container">
+            <div class="reader-header">
+                <h2>Manga Reader</h2>
+                <p>Read Solo Leveling in high quality. Use the navigation to move between chapters or jump to any chapter from the list below.</p>
+            </div>
 
-    <!-- Chapter 112 Example -->
-    <div class="chapter">
-      <span>Chapter 112</span>
-      <a href="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20112.pdf" target="_blank">Download</a>
-    </div>
-    <div class="pdf-container">
-      <embed src="https://raw.githubusercontent.com/lossofcreativity/solo-leveling/main/Ch%20112.pdf" type="application/pdf" />
-    </div>
+            <div class="chapter-selector">
+                <div class="chapter-nav" id="prev-chapter">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                
+                <div class="chapter-info">
+                    <h3>Chapter <span id="current-chapter">1</span></h3>
+                    <p>Page <span id="current-page">1</span> of <span id="total-pages">-</span></p>
+                </div>
+                
+                <div class="chapter-nav" id="next-chapter">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
 
-    <!-- Add more chapters as needed -->
-    <!-- Repeat for other chapters -->
+            <div class="pdf-viewer">
+                <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
+            </div>
 
-  </div>
+            <div class="download-actions">
+                <a href="#" class="btn" id="download-btn">
+                    <i class="fas fa-download"></i> Download Chapter
+                </a>
+                <a href="#" class="btn btn-outline" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </a>
+            </div>
 
+            <div class="chapter-list" id="chapters">
+                <h3>All Chapters</h3>
+                <div class="chapters-grid" id="chapters-grid">
+                    <!-- Chapters will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Solo Leveling</div>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+                <p class="copyright">© 2023 Solo Leveling Manga Reader. All rights reserved. Solo Leveling is owned by its respective authors and publishers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const totalChapters = 200;
+        const pdfBaseUrl = "https://yourdomain.com/manga/"; // Change this to your actual PDF location
+        const pdfPrefix = "Ch ";
+        
+        // Current chapter state
+        let currentChapter = 1;
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        
+        // DOM elements
+        const pdfIframe = document.getElementById('pdf-iframe');
+        const currentChapterEl = document.getElementById('current-chapter');
+        const currentPageEl = document.getElementById('current-page');
+        const totalPagesEl = document.getElementById('total-pages');
+        const prevChapterBtn = document.getElementById('prev-chapter');
+        const nextChapterBtn = document.getElementById('next-chapter');
+        const downloadBtn = document.getElementById('download-btn');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const chaptersGrid = document.getElementById('chapters-grid');
+        
+        // Initialize the viewer
+        function init() {
+            // Generate chapter list
+            generateChapterList();
+            
+            // Load the first chapter
+            loadChapter(currentChapter);
+            
+            // Event listeners
+            prevChapterBtn.addEventListener('click', prevChapter);
+            nextChapterBtn.addEventListener('click', nextChapter);
+            downloadBtn.addEventListener('click', downloadChapter);
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevChapter();
+                } else if (e.key === 'ArrowRight') {
+                    nextChapter();
+                }
+            });
+        }
+        
+        // Load a chapter
+        function loadChapter(chapterNum) {
+            if (chapterNum < 1 || chapterNum > totalChapters) return;
+            
+            currentChapter = chapterNum;
+            currentChapterEl.textContent = formatChapterNumber(currentChapter);
+            
+            // Update PDF viewer
+            const pdfUrl = `${pdfBaseUrl}${pdfPrefix}${formatChapterNumber(currentChapter, true)}.pdf`;
+            pdfIframe.src = `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+            
+            // Update chapter cards
+            updateActiveChapterCard();
+            
+            // Update download button
+            downloadBtn.href = pdfUrl;
+            downloadBtn.download = `Solo Leveling ${pdfPrefix}${formatChapterNumber(currentChapter)}.pdf`;
+            
+            // Update navigation buttons
+            prevChapterBtn.classList.toggle('disabled', currentChapter === 1);
+            nextChapterBtn.classList.toggle('disabled', currentChapter === totalChapters);
+        }
+        
+        // Format chapter number (001, 002, etc.)
+        function formatChapterNumber(num, forUrl = false) {
+            if (forUrl) {
+                return num.toString().padStart(3, '0');
+            }
+            return num;
+        }
+        
+        // Previous chapter
+        function prevChapter() {
+            if (currentChapter > 1) {
+                loadChapter(currentChapter - 1);
+            }
+        }
+        
+        // Next chapter
+        function nextChapter() {
+            if (currentChapter < totalChapters) {
+                loadChapter(currentChapter + 1);
+            }
+        }
+        
+        // Generate chapter list
+        function generateChapterList() {
+            for (let i = 1; i <= totalChapters; i++) {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = 'chapter-card';
+                if (i === currentChapter) chapterCard.classList.add('active');
+                chapterCard.textContent = `Chapter ${i}`;
+                chapterCard.addEventListener('click', () => {
+                    loadChapter(i);
+                    window.scrollTo({
+                        top: pdfIframe.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                });
+                chaptersGrid.appendChild(chapterCard);
+            }
+        }
+        
+        // Update active chapter card
+        function updateActiveChapterCard() {
+            document.querySelectorAll('.chapter-card').forEach(card => {
+                card.classList.remove('active');
+                const chapterNum = parseInt(card.textContent.replace('Chapter ', ''));
+                if (chapterNum === currentChapter) {
+                    card.classList.add('active');
+                }
+            });
+        }
+        
+        // Download current chapter
+        function downloadChapter() {
+            // This is handled by the download attribute on the link
+        }
+        
+        // Toggle fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                pdfIframe.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Initialize the viewer when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
